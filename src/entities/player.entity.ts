@@ -2,10 +2,11 @@ import { UUID } from 'crypto';
 import {
   Column,
   Entity,
-  //   JoinColumn,
-  //   OneToOne,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { DetailPlayer } from './detailPlayer.entity';
 
 @Entity()
 export class Player {
@@ -30,7 +31,13 @@ export class Player {
   @Column()
   password: string;
 
-  //   @OneToOne(() => DetailPlayer)
-  //   @JoinColumn()
-  //   detailPlayer: DetailPlayer;
+  @Column({
+    type: 'datetime',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createAt: Date;
+
+  @OneToOne(() => DetailPlayer)
+  @JoinColumn()
+  detailPlayer: DetailPlayer;
 }
